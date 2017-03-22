@@ -31,7 +31,7 @@ public class Client {
 			while(true){
 				//定义一个字节数组，然后使用系统录入功能；
 				byte[] bytes = new byte[1024];
-				System.in.read(bytes);
+				System.out.println(bytes);
 				
 				//把数据放到缓冲区中
 				buf.put(bytes);

@@ -15,7 +15,8 @@ public class Server implements Runnable{
 	private Selector selector;
 	//2.建立缓冲区（读）
 	private ByteBuffer readBuf = ByteBuffer.allocate(1024);
-	//3.
+	//3.建立缓冲区(写)
+	private ByteBuffer writeBuf = ByteBuffer.allocate(1024);
 	
 	
 	public Server(int port){
