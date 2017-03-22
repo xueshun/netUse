@@ -1,0 +1,40 @@
+学习NIO (new IO 或者  Non-block IO)
+首先要先理解几个概念
+	Buffer  Channel  Selector
+	
+Buffer : ByteBuffer,CharBuffer,
+		 DoubleBuffer,FloatBuffer,
+		 IntBuffer, LongBuffer
+		 ShortBuffer
+
+Channel : FileChannel, DatagramChannel  		(FielChannel)
+		  SocketChannel, SocketServerChannel	(SelectableChannel)
+		  
+	通道(Channel),他就像自来水通道一样，网络数据通过Channel读取和写入，通道 与 流
+		不同之处在于通道是双向的，而流只是一个方向上移动（一个流必须是InputStream 或者是
+		outputStream的子类），而通道可以用于读，写或者两者同时进行，最关键的是可以与多路复用器
+		结合起来，有多种状态位，方便多路复用器去识别。
+		事实上通道分为两大类，一类是网络写的（SelectableChannel）,一类是用于文件操作（FileChannel）
+
+Selector : 
+		多用复用器，是Nio编程的基础，非常重要。多路复用器提供选择已经就绪的任务的能力
+		
+		简单说，就是Selector会不断地轮询祖册在其上的通道（Channel）,如果某个通道发生读写操作，这个通道
+		就处于就绪状态，会被Selector轮询出来，然后通过SelectionKey 可以取得就绪的Channel集合，从而进行
+		后续的IO操作。
+		
+		一个多路复用器可以负责成千上万的Channel通道，没有上限
+		
+		Selector线程就类似一个管理者（Master），管理了成千上万个通道，然后轮询那个管道的数据已经准备好，
+		通知cpu执行IO的读取或者写入操作
+		
+		Selector模式：当IO（管道）注册到选择器以后，selector会分配给每个管道一个key值，相当于标签，
+		Selector选择器是一轮询的方式进行查找注册的所有IO时间(管道)，当IO事件(管道)准备就绪后，select
+		就会识别，会通过key找到对应的管道，进行相关数据处理操作（从管道里多或写数据，写到数据缓冲区中）
+		
+		SelectionKey.OP_CONNECT
+		SelectionKey.OP_ACCEPT
+		SelectionKey.OP_READ
+		SelectionKey,OP_WRITE
+	
+		
